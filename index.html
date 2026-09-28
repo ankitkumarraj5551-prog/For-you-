@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I'm Really Sorry 🥺</title>
+  <!-- Confetti script for celebration -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1e1b4b, #0f172a, #090d16);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+      padding: 20px;
+    }
+
+    /* Ambient background glow */
+    .glow-circle {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: rgba(236, 72, 153, 0.18);
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .card {
+      position: relative;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 28px;
+      padding: 35px 25px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      transition: all 0.4s ease;
+    }
+
+    .avatar {
+      font-size: 64px;
+      margin-bottom: 12px;
+      display: inline-block;
+      animation: gentleBounce 2s infinite ease-in-out;
+    }
+
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #f472b6, #fb7185, #fca5a5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      font-size: 15px;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .btn-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      min-height: 60px;
+      align-items: center;
+    }
+
+    button {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 13px 26px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 9999px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-yes {
+      background: linear-gradient(135deg, #ec4899, #f43f5e);
+      color: white;
+      box-shadow: 0 8px 20px rgba(244, 63, 94, 0.4);
+    }
+
+    .btn-yes:hover {
+      transform: scale(1.06);
+      box-shadow: 0 10px 25px rgba(244, 63, 94, 0.55);
+    }
+
+    .btn-no {
+      background: rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      position: relative;
+    }
+
+    /* Screen after forgiving */
+    .success-view {
+      display: none;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .success-view h2 {
+      font-size: 24px;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    .success-view p {
+      font-size: 15px;
+      color: #e2e8f0;
+      line-height: 1.7;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-circle"></div>
+
+  <div class="card" id="card">
+    <!-- Main apology screen -->
+    <div id="askView">
+      <div class="avatar" id="emojiIcon">🥺</div>
+      <h1>I'm Truly Sorry...</h1>
+      <p class="subtitle">
+        I know I messed up and hurt you, and I genuinely regret it. Your smile means the absolute world to me. Can you please forgive me?
+      </p>
+
+      <div class="btn-container" id="buttonArea">
+        <button class="btn-yes" id="yesBtn" onclick="acceptApology()">Yes, I forgive you ❤️</button>
+        <button class="btn-no" id="noBtn" onmouseover="dodgeButton()" onclick="dodgeButton()">No 😤</button>
+      </div>
+    </div>
+
+    <!-- Success message screen -->
+    <div class="success-view" id="successView">
+      <div class="avatar">🥰✨</div>
+      <h2>Thank You! ❤️</h2>
+      <p>
+        I promise to never take you for granted and to be better every day. Thank you for giving me another chance!
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    let dodgeCount = 0;
+
+    const noTexts = [
+      "Are you sure? 🥺",
+      "Think again! 😭",
+      "Please don't... 💔",
+      "Catch me first! 🏃‍♂️",
+      "You can't say no! 🥹",
+      "Give me a chance! ✨"
+    ];
+
+    function dodgeButton() {
+      // Switch button to absolute positioning within the card or viewport
+      noBtn.style.position = 'fixed';
+
+      const padding = 60;
+      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+      const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+
+      // Cycle through cheeky texts
+      noBtn.innerText = noTexts[dodgeCount % noTexts.length];
+      dodgeCount++;
+
+      // Slowly grow the Yes button so it becomes irresistible
+      const yesBtn = document.getElementById("yesBtn");
+      const currentScale = 1 + (dodgeCount * 0.08);
+      yesBtn.style.transform = `scale(${Math.min(currentScale, 1.45)})`;
+    }
+
+    function acceptApology() {
+      document.getElementById("askView").style.display = "none";
+      if (noBtn) noBtn.style.display = "none";
+      document.getElementById("successView").style.display = "block";
+
+      // Fire confetti bursts
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 50,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 50,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+      }, 250);
+    }
+  </script>
+</body>
+</html>
