@@ -6,186 +6,146 @@
   <title>PLSS KAJU BBY JI 🥺❤️</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
-    :root {
-      --bg: #05050a;
-      --prime: #ff007f;
-      --alt: #00f2fe;
-      --white: #ffffff;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      user-select: none;
       -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
 
     body {
-      background: var(--bg);
-      background-image: 
-        radial-gradient(circle at 10% 10%, rgba(255,0,127,0.18) 0%, rgba(0,0,0,0) 40%),
-        radial-gradient(circle at 90% 90%, rgba(0,242,254,0.18) 0%, rgba(0,0,0,0) 40%);
+      background: radial-gradient(circle at center, #1a0826 0%, #080310 100%);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: var(--white);
-      overflow: hidden;
       padding: 16px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 380px;
-      text-align: center;
-      z-index: 1;
-    }
-
-    .retro-status {
-      font-size: 11px;
-      color: var(--alt);
-      letter-spacing: 2px;
-      margin-bottom: 12px;
-      font-weight: 700;
+      overflow: hidden;
     }
 
     .card {
-      background: rgba(18, 16, 28, 0.92);
-      backdrop-filter: blur(14px);
-      border: 2px solid var(--alt);
+      background: rgba(25, 12, 38, 0.95);
+      border: 2px solid #ff2a85;
+      box-shadow: 0 0 25px rgba(255, 42, 133, 0.35);
       border-radius: 20px;
-      padding: 26px 20px;
-      box-shadow: 0 10px 30px rgba(0, 242, 254, 0.2);
+      padding: 24px 18px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
     }
 
-    .title {
-      font-size: 21px;
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #00f2fe;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 20px;
       font-weight: 800;
-      color: var(--prime);
+      color: #ff2a85;
       margin-bottom: 12px;
       line-height: 1.4;
+      text-shadow: 0 0 10px rgba(255, 42, 133, 0.4);
     }
 
-    .msg {
+    p.desc {
       font-size: 13.5px;
-      color: #cbd5e1;
-      line-height: 1.7;
-      margin-bottom: 18px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      margin-bottom: 16px;
     }
 
-    .meter-box {
-      width: 100%;
-      height: 6px;
-      background: #222;
-      border-radius: 3px;
+    .line {
+      height: 4px;
+      background: linear-gradient(90deg, #00f2fe, #ff2a85);
+      border-radius: 2px;
       margin-bottom: 22px;
-      overflow: hidden;
     }
 
-    .meter-fill {
-      height: 100%;
-      width: 100%;
-      background: linear-gradient(90deg, var(--alt), var(--prime));
-    }
-
-    /* Stable Button Container */
-    .btn-area {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      align-items: center;
-      min-height: 60px;
+    /* Fixed Box for Buttons */
+    .button-box {
       position: relative;
-    }
-
-    button {
-      padding: 13px 20px;
-      font-size: 13.5px;
-      font-weight: 700;
-      border-radius: 9999px;
-      cursor: pointer;
-      border: none;
-      outline: none;
-      transition: all 0.2s ease;
+      width: 100%;
+      height: 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
     }
 
     .btn-yes {
-      background: linear-gradient(135deg, #ff007f, #f43f5e);
-      color: #fff;
-      box-shadow: 0 6px 20px rgba(255, 0, 127, 0.45);
-      z-index: 10;
-      flex: 1;
+      background: #ff2a85;
+      color: #ffffff;
+      border: none;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 24px;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(255, 42, 133, 0.5);
+      cursor: pointer;
+      width: 90%;
+      max-width: 280px;
+      transition: transform 0.15s ease, background 0.2s ease;
+      z-index: 2;
     }
 
     .btn-no {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
       color: #94a3b8;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      flex: 1;
-      white-space: nowrap;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+      position: relative;
     }
 
-    /* Success Screen */
-    #successModal {
+    /* Success Card */
+    #celebrateCard {
       display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(3, 0, 8, 0.96);
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
+      text-align: center;
+      animation: pop 0.3s ease forwards;
     }
 
-    .success-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px dashed var(--prime);
-      border-radius: 20px;
-      padding: 30px 22px;
-      max-width: 360px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 0 35px rgba(255, 0, 127, 0.35);
+    @keyframes pop {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container" id="mainContainer">
-    <div class="retro-status">SYS::APOLOGY_LOCK 🚨</div>
-
-    <div class="card">
-      <div class="title" id="mainTitle">PLSS KAJU BBY JI MAAN JAO NA 🥺❤️</div>
-      
-      <p class="msg" id="mainMsg">
-        Mera dimag sach me kharab ho gaya tha... I am really sorry! Gussa hona ab strictly band karo na please! 😭
+  <div class="card" id="mainCard">
+    <div id="contentArea">
+      <span class="badge">SYS::APOLOGY_LOCK 🚨</span>
+      <h1>PLSS KAJU BBY JI<br>MAAN JAO NA 🥺❤️</h1>
+      <p class="desc">
+        Mera dimag sach me kharab ho gaya tha... I am really very sorry! Gussa bilkul band kar do na plss! 😭
       </p>
+      <div class="line"></div>
 
-      <div class="meter-box">
-        <div class="meter-fill"></div>
-      </div>
-
-      <div class="btn-area" id="btnWrapper">
-        <button class="btn-yes" id="yesBtn" onclick="celebrate()">MAAN GAYI BBY ❤️</button>
-        <button class="btn-no" id="noBtn" onclick="moveNoButton()" onmouseover="moveNoButton()">NAHI MAANUNGI 😤</button>
+      <div class="button-box" id="box">
+        <button class="btn-yes" id="yesBtn" onclick="acceptForgiveness()">MAAN GAYI BBY ❤️</button>
+        <button class="btn-no" id="noBtn" onclick="dodgeNo()" onmouseover="dodgeNo()">NAHI MAANUNGI 😤</button>
       </div>
     </div>
-  </div>
 
-  <!-- Success View -->
-  <div id="successModal">
-    <div class="success-card">
-      <div style="font-size: 65px; margin-bottom: 12px;">🥰🥹🎉</div>
-      <h2 style="color: var(--prime); font-size: 21px; margin-bottom: 10px;">YAYYY MAAN GAYI! ❤️</h2>
-      <p style="color: var(--alt); font-size: 13.5px; line-height: 1.7;">
+    <div id="celebrateCard">
+      <div style="font-size: 60px; margin-bottom: 10px;">🥰🥹🎉</div>
+      <h1 style="margin-bottom: 8px;">YAYYY MAAN GAYI! ❤️</h1>
+      <p class="desc" style="color: #00f2fe;">
         Thank you kaju bby ji! 🥰<br>
         Ab gussa bilkul khatam.<br>
-        Promise ab tang nahi karunga, only treats & love from now! ✨
+        Promise ab tang nahi karunga! ✨
       </p>
     </div>
   </div>
@@ -193,73 +153,47 @@
   <script>
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
-    let dodgeCount = 0;
+    let count = 0;
 
-    const noTexts = [
+    const phrases = [
       "Arey suno na! 🥺",
-      "Kaju plss! 😭",
+      "Kaju plss maan jao! 😭",
       "Pakad ke dikhao! 🏃",
-      "Itna gussa?! 💔",
-      "Maan jao na bby! 🥹"
+      "Itna gussa?! 💔"
     ];
 
-    function moveNoButton() {
-      dodgeCount++;
+    function dodgeNo() {
+      count++;
 
-      // Mobile screen safe boundaries calculate karna
-      const btnWidth = noBtn.offsetWidth || 110;
-      const btnHeight = noBtn.offsetHeight || 44;
-      const margin = 20;
+      // Small jitter inside the safe box
+      const shiftX = (Math.random() - 0.5) * 140;
+      const shiftY = (Math.random() - 0.5) * 40;
+      noBtn.style.transform = `translate(${shiftX}px, ${shiftY}px)`;
 
-      const safeMaxX = window.innerWidth - btnWidth - margin;
-      const safeMaxY = window.innerHeight - btnHeight - margin;
-
-      const newX = Math.max(margin, Math.floor(Math.random() * safeMaxX));
-      const newY = Math.max(margin, Math.floor(Math.random() * safeMaxY));
-
-      noBtn.style.position = 'fixed';
-      noBtn.style.left = `${newX}px`;
-      noBtn.style.top = `${newY}px`;
-      noBtn.style.zIndex = '999';
-
-      // Text update karna moving button pe
-      if (dodgeCount <= noTexts.length) {
-        noBtn.innerText = noTexts[dodgeCount - 1];
+      if (count <= phrases.length) {
+        noBtn.innerText = phrases[count - 1];
       }
 
-      // YES button ko bada karna aur highlight karna
-      const scale = 1 + (dodgeCount * 0.08);
-      yesBtn.style.transform = `scale(${Math.min(scale, 1.3)})`;
-
-      // Jab wo 5 baar tap kar le, toh YES button pe 'BAS YEH DABAO' likh de aur NO button hata de!
-      if (dodgeCount >= 5) {
-        yesBtn.innerText = "BAS YEH DABAO! 💖";
-        yesBtn.style.width = "100%";
+      // Automatically removes NO and highlights YES
+      if (count >= 4) {
         noBtn.style.display = "none";
+        yesBtn.innerText = "BAS YEH DABAO! 💖";
+        yesBtn.style.transform = "scale(1.08)";
+        yesBtn.style.background = "#00f2fe";
+        yesBtn.style.color = "#000";
+        yesBtn.style.boxShadow = "0 0 20px rgba(0, 242, 254, 0.7)";
       }
     }
 
-    function celebrate() {
-      document.getElementById("mainContainer").style.display = "none";
-      if (noBtn) noBtn.style.display = "none";
+    function acceptForgiveness() {
+      document.getElementById("contentArea").style.display = "none";
+      document.getElementById("celebrateCard").style.display = "block";
 
-      const modal = document.getElementById("successModal");
-      modal.style.display = "flex";
-
-      // Confetti burst
       confetti({
-        particleCount: 70,
+        particleCount: 80,
         spread: 80,
         origin: { y: 0.6 }
       });
-
-      setTimeout(() => {
-        confetti({
-          particleCount: 50,
-          spread: 100,
-          origin: { y: 0.4 }
-        });
-      }, 300);
     }
   </script>
 </body>
